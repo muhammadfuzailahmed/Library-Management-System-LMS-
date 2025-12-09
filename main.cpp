@@ -2,6 +2,8 @@
 #include <string>
 using namespace std;
 
+int bookIndex = 100;
+
 class Node {
 public:
     int id;
@@ -32,10 +34,11 @@ class LinkedList {
 public:
     Node* head = nullptr;
 
-    void push(int new_val, string new_title, string new_author, int new_price) {
-        Node* new_node = new Node(new_val, new_title, new_author, new_price);
+    void push(int new_id, string new_title, string new_author, int new_price) {
+        Node* new_node = new Node(new_id, new_title, new_author, new_price);
         if (head == nullptr) {
             head = new_node;
+            cout << "Book added successfully!" << endl;
             return;
         }
         Node* curr = head;
@@ -97,8 +100,6 @@ void Add_book() {
     while (n != 0) {
         Book b;
         cout << endl;
-        cout << "Enter book ID: ";
-        cin >> b.ID;
         cin.ignore();
         cout << "Enter book Title: ";
         getline(cin, b.title);
@@ -106,8 +107,9 @@ void Add_book() {
         getline(cin, b.author);
         cout << "Enter book price: ";
         cin >> b.price;
-        cin.ignore();
+        b.ID = bookIndex;
         l->push(b.ID, b.title, b.author, b.price);
+        bookIndex++;
         n--;
     };
 }
