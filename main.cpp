@@ -58,7 +58,7 @@ public:
             cout << "Book Title: " << curr->title << endl;
             cout << "Book Author: " << curr->author << endl;
             cout << "Book Price: " << curr->price << endl;
-            cout << "Is Issued: " << curr->isIssued << endl;
+            cout << "Is Issued: " << (curr->isIssued ? "Not Available" : "Available") << endl;
             cout << "================================================================" << endl;
             cout << endl;
             curr = curr->next;
