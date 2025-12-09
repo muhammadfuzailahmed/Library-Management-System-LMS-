@@ -3,17 +3,22 @@
 using namespace std;
 
 int bookIndex = 100;
+int books_record_count = 0;
+int stored_ids[100];
+string stored_titles[100];
 
-class Node {
+class Node
+{
 public:
     int id;
     string title;
     string author;
     float price;
     bool isIssued;
-    Node* next;
+    Node *next;
 
-    Node(int id, string title, string author, float price) {
+    Node(int id, string title, string author, float price)
+    {
         this->id = id;
         this->title = title;
         this->author = author;
@@ -23,36 +28,50 @@ public:
     }
 };
 
-struct Book {
+struct Book
+{
     int ID;
     string title;
     string author;
     float price;
 };
 
-class LinkedList {
+class LinkedList
+{
 public:
-    Node* head = nullptr;
+    Node *head = nullptr;
 
-    void push(int new_id, string new_title, string new_author, int new_price) {
-        Node* new_node = new Node(new_id, new_title, new_author, new_price);
-        if (head == nullptr) {
+    void push(int new_id, string new_title, string new_author, int new_price)
+    {
+        Node *new_node = new Node(new_id, new_title, new_author, new_price);
+        if (head == nullptr)
+        {
             head = new_node;
+            stored_ids[books_record_count] = new_id;
+            stored_titles[books_record_count] = new_title;
+            books_record_count++;
             cout << "Book added successfully!" << endl;
             return;
         }
-        Node* curr = head;
-        while (curr->next != nullptr) {
+        Node *curr = head;
+        while (curr->next != nullptr)
+        {
             curr = curr->next;
         }
         curr->next = new_node;
+        stored_ids[books_record_count] = new_id;
+        stored_titles[books_record_count] = new_title;
+        books_record_count++;
         cout << "Book added successfully!" << endl;
         cout << endl;
     }
 
-    void print_nodes() {
-        Node* curr = head;
-        while (curr != nullptr) {
+    void print_nodes()
+    {
+        Node *curr = head;
+        int i = 0;
+        while (curr != nullptr)
+        {
             cout << "================================================================" << endl;
             cout << "Book ID: " << curr->id << endl;
             cout << "Book Title: " << curr->title << endl;
@@ -61,6 +80,8 @@ public:
             cout << "Is Issued: " << (curr->isIssued ? "Not Available" : "Available") << endl;
             cout << "================================================================" << endl;
             cout << endl;
+            cout << "Title: " << stored_titles[i];
+            i++;
             curr = curr->next;
         }
     }
@@ -91,13 +112,15 @@ public:
     }
 };
 
-LinkedList* l;
+LinkedList *l;
 
-void Add_book() {
+void Add_book()
+{
     cout << "Enter no. of books to be added: " << endl;
     int n;
     cin >> n;
-    while (n != 0) {
+    while (n != 0)
+    {
         Book b;
         cout << endl;
         cin.ignore();
@@ -114,7 +137,8 @@ void Add_book() {
     };
 }
 
-void print_books() {
+void print_books()
+{
     l->print_nodes();
 }
 
@@ -122,7 +146,8 @@ int main()
 {
     l = new LinkedList();
     int choice;
-    do {
+    do
+    {
         cout << "1. Add Book" << endl;
         cout << "2. Show all Books" << endl;
         cout << "3. Search Book" << endl;
@@ -133,16 +158,20 @@ int main()
         cout << "0. Exit" << endl;
         cout << "Enter choice: ";
         cin >> choice;
-        if (choice == 1) {
+        if (choice == 1)
+        {
             Add_book();
         }
-        else if (choice == 2) {
+        else if (choice == 2)
+        {
             print_books();
         }
-        else if (choice == 3) {
-            cout << "Working on it" << endl;
+        else if (choice == 3)
+        {
+            // search_book();
         }
-        else {
+        else
+        {
             break;
         }
     } while (choice != 0);
