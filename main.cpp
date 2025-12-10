@@ -195,6 +195,43 @@ public:
     void return_book()
     {
         // enter code here for return book
+        string book_name;
+        bool found = false;
+        int choice;
+        cin.ignore();
+        cout << "Enter book name: ";
+        getline(cin, book_name);
+        for(int i = 0; i < borrow_counter; i++) {
+            if(borrowed_books[i] == book_name) {
+                found = true;
+                cout << "================================================================" << endl;
+                cout << "Book Title: " << borrowed_books[i] << endl;
+                cout << "Borrower's name: " << borrower_names[i] << endl; 
+                cout << "================================================================" << endl;
+                cout << endl;
+                cout << "Return book" << endl;
+                cout << "1. Yes" << endl;
+                cout << "2. No" << endl;
+                cin >> choice;
+                if(choice == 1) {
+                    Node* curr = head;
+                    while (curr != nullptr) {
+                        if(curr->title == borrowed_books[i]) {
+                            curr->isIssued = false;
+                            cout << "Book returned successfully!" << endl;
+                            break;
+                        }
+                        curr = curr->next;
+                    }
+                }else{
+                    return;
+                }
+                break;
+            }
+        }
+        if(!found) {
+            cout << "Book not found" << endl;
+        }
     }
 
     void available_books()
@@ -246,6 +283,10 @@ void issue_books() {
     l->issue_book();
 }
 
+void return_books() {
+    l->return_book();
+}
+
 int main()
 {
     l = new LinkedList();
@@ -277,6 +318,10 @@ int main()
         else if (choice == 4)
         {
              issue_books();
+        }
+        else if (choice == 5)
+        {
+             return_books();
         }
         else
         {
