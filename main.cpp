@@ -4,8 +4,6 @@ using namespace std;
 
 int bookIndex = 100;
 int books_record_count = 0;
-int stored_ids[100];
-string stored_titles[100];
 
 class Node
 {
@@ -15,7 +13,7 @@ public:
     string author;
     float price;
     bool isIssued;
-    Node *next;
+    Node* next;
 
     Node(int id, string title, string author, float price)
     {
@@ -39,28 +37,24 @@ struct Book
 class LinkedList
 {
 public:
-    Node *head = nullptr;
+    Node* head = nullptr;
 
     void push(int new_id, string new_title, string new_author, int new_price)
     {
-        Node *new_node = new Node(new_id, new_title, new_author, new_price);
+        Node* new_node = new Node(new_id, new_title, new_author, new_price);
         if (head == nullptr)
         {
             head = new_node;
-            stored_ids[books_record_count] = new_id;
-            stored_titles[books_record_count] = new_title;
-            books_record_count++;
             cout << "Book added successfully!" << endl;
+            cout << endl;
             return;
         }
-        Node *curr = head;
+        Node* curr = head;
         while (curr->next != nullptr)
         {
             curr = curr->next;
         }
         curr->next = new_node;
-        stored_ids[books_record_count] = new_id;
-        stored_titles[books_record_count] = new_title;
         books_record_count++;
         cout << "Book added successfully!" << endl;
         cout << endl;
@@ -68,27 +62,90 @@ public:
 
     void print_nodes()
     {
-        Node *curr = head;
+        Node* curr = head;
         int i = 0;
         while (curr != nullptr)
         {
+            cout << endl;
             cout << "================================================================" << endl;
             cout << "Book ID: " << curr->id << endl;
             cout << "Book Title: " << curr->title << endl;
             cout << "Book Author: " << curr->author << endl;
             cout << "Book Price: " << curr->price << endl;
-            cout << "Is Issued: " << (curr->isIssued ? "Not Available" : "Available") << endl;
+            cout << "Available: " << (curr->isIssued ? "No" : "Yes") << endl;
             cout << "================================================================" << endl;
             cout << endl;
-            cout << "Title: " << stored_titles[i];
             i++;
             curr = curr->next;
         }
     }
 
+    void search_book_with_title() {
+        string search_title;
+        bool found = false;
+        cin.ignore();
+        cout << "Enter book title: ";
+        getline(cin, search_title);
+        Node* curr = head;
+        while (curr != nullptr) {
+            if (curr->title == search_title) {
+                cout << endl;
+                cout << "================================================================" << endl;
+                cout << "Book ID: " << curr->id << endl;
+                cout << "Book Title: " << curr->title << endl;
+                cout << "Book Author: " << curr->author << endl;
+                cout << "Book Price: " << curr->price << endl;
+                cout << "Available: " << (curr->isIssued ? "No" : "Yes") << endl;
+                cout << "================================================================" << endl;
+                cout << endl;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            cout << "Book not found" << endl;
+        }
+    }
+
+    void search_book_with_id() {
+        int choice;
+        bool found = false;
+        cout << "Enter id: ";
+        cin >> choice;
+        Node* curr = head;
+        while (curr != nullptr) {
+            if (curr->id == choice) {
+                cout << endl;
+                cout << "================================================================" << endl;
+                cout << "Book ID: " << curr->id << endl;
+                cout << "Book Title: " << curr->title << endl;
+                cout << "Book Author: " << curr->author << endl;
+                cout << "Book Price: " << curr->price << endl;
+                cout << "Available: " << (curr->isIssued ? "No" : "Yes") << endl;
+                cout << "================================================================" << endl;
+                cout << endl;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            cout << "Book not found" << endl;
+        }
+    }
+
     void search_book()
     {
-        // enter code here with binary search and sorting
+        // enter code here with linear search
+        int choice;
+        cout << "1. Search book with title" << endl;
+        cout << "2. Search book with ID" << endl;
+        cin >> choice;
+        if (choice == 1) {
+            search_book_with_title();
+        }
+        else {
+            search_book_with_id();
+        }
     }
 
     void issue_book()
@@ -112,7 +169,7 @@ public:
     }
 };
 
-LinkedList *l;
+LinkedList* l;
 
 void Add_book()
 {
@@ -142,6 +199,10 @@ void print_books()
     l->print_nodes();
 }
 
+void search_books() {
+    l->search_book();
+}
+
 int main()
 {
     l = new LinkedList();
@@ -168,7 +229,7 @@ int main()
         }
         else if (choice == 3)
         {
-            // search_book();
+             search_books();
         }
         else
         {
