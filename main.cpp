@@ -4,6 +4,9 @@ using namespace std;
 
 int bookIndex = 100;
 int books_record_count = 0;
+string borrowed_books[20];
+string borrower_names[20];
+int borrow_counter = 0;
 
 class Node
 {
@@ -153,6 +156,40 @@ public:
     void issue_book()
     {
         // enter code here for issuing the book
+        string book_name;
+        string borrower_name;
+        bool found = false;
+        cin.ignore();
+        cout << "Enter book name: ";
+        getline(cin, book_name);
+        Node* curr = head;
+        while(curr != nullptr) {
+            if(curr->title == book_name) {
+                found = true;
+                if(curr->isIssued == false) {
+                    cout << "Enter borrower's name: ";
+                    getline(cin, borrower_name); 
+                    curr->isIssued = true;
+                    cout << endl;
+                    cout << "================================================================" << endl;
+                    borrowed_books[borrow_counter] = book_name;
+                    borrower_names[borrow_counter] = borrower_name;
+                    borrow_counter++;
+                    cout << "Book issued successfully!" << endl;
+                    cout << "Borrower's name: " << borrower_name << endl;
+                    cout << "================================================================" << endl;
+                    cout << endl;
+                    break;
+                }else {
+                    cout << "Book is already issued" << endl;
+                    break;
+                }
+            }
+            curr = curr->next;
+        }
+        if(!found) {
+            cout << "Book not found" << endl; 
+        }
     }
 
     void return_book()
@@ -205,6 +242,10 @@ void search_books() {
     l->search_book();
 }
 
+void issue_books() {
+    l->issue_book();
+}
+
 int main()
 {
     l = new LinkedList();
@@ -232,6 +273,10 @@ int main()
         else if (choice == 3)
         {
              search_books();
+        }
+        else if (choice == 4)
+        {
+             issue_books();
         }
         else
         {
