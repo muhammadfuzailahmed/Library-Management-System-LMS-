@@ -101,6 +101,7 @@ public:
                 found = true;
                 break;
             }
+            curr = curr->next;
         }
         if (!found) {
             cout << "Book not found" << endl;
@@ -127,6 +128,7 @@ public:
                 found = true;
                 break;
             }
+            curr = curr->next;
         }
         if (!found) {
             cout << "Book not found" << endl;
