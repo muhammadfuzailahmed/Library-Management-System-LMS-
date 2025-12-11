@@ -273,6 +273,43 @@ public:
             curr = curr->next;
         }
     }
+
+    void delete_book() {
+        string book_title;
+        bool found = false;
+        cin.ignore();
+        cout << "Enter book title: ";
+        getline(cin,  book_title); 
+        Node* curr = head;
+        Node* prev;
+
+        if(head->title == book_title) {
+            head = head->next;
+            cout << endl;
+            cout << "Book deleted successfully!" << endl;
+            cout << endl;
+            return;
+        }
+
+        while (curr != nullptr) {
+            if(curr->title == book_title) {
+                found = true;
+                prev->next = curr->next;
+                delete curr;
+                curr = nullptr;
+                cout << "Book deleted successfully!" << endl;
+                break;
+            }
+            prev = curr;
+            curr = curr->next;
+        }
+        if(!found) {
+            cout << endl;
+            cout << "Book not found" << endl;
+            cout << endl;
+        }
+    }
+
 };
 
 LinkedList* l;
@@ -325,6 +362,10 @@ void all_issued_books() {
     l->issued_books();
 }
 
+void book_deletion() {
+    l->delete_book();
+}
+
 int main()
 {
     l = new LinkedList();
@@ -371,6 +412,10 @@ int main()
         else if (choice == 7)
         {
              all_issued_books();
+        }
+        else if (choice == 8)
+        {
+             book_deletion();
         }
         else
         {
