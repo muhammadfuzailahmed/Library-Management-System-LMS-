@@ -209,7 +209,7 @@ public:
                 cout << "Borrower's name: " << borrower_names[i] << endl; 
                 cout << "================================================================" << endl;
                 cout << endl;
-                cout << "Return book" << endl;
+                cout << "Do you want to return book?" << endl;
                 cout << "1. Yes" << endl;
                 cout << "2. No" << endl;
                 cin >> choice;
@@ -310,6 +310,68 @@ public:
         }
     }
 
+    void update_book_info() {
+        int find_id, updated_price;
+        string updated_title, updated_author;
+        bool found = false;
+        cout << "Enter book ID: ";
+        cin >> find_id;
+        Node* curr = head;
+        while (curr != nullptr) {
+            if(curr->id == find_id) {
+                found = true;
+                cin.ignore();
+                cout << "Enter updated Title: ";
+                getline(cin, updated_title);
+                cout << "Enter updated Author name: ";
+                getline(cin, updated_author);
+                cout << "Enter updated Price: ";
+                cin >> updated_price;
+                curr->title = updated_title;
+                curr->author = updated_author;
+                curr->price = updated_price;
+                cout << endl;
+                cout << "Info updated successfully!" << endl;
+                cout << endl;
+                break;
+            }
+        }
+        if(!found) {
+            cout << endl;
+            cout << "Book not found" << endl;
+            cout << endl;
+        }
+    }
+
+    void filter_books() {
+        float min, max;
+        bool found = false;
+        cout << "Min price: ";
+        cin >> min;
+        cout << "Max price: ";
+        cin >> max;
+        Node* curr = head;
+        while(curr != nullptr) {
+            if(curr->price >= min && curr->price <= max) {
+                found = true;
+                cout << endl;
+                cout << "================================================================" << endl;
+                cout << "Book ID: " << curr->id << endl;
+                cout << "Book Title: " << curr->title << endl;
+                cout << "Book Author: " << curr->author << endl;
+                cout << "Book Price: " << curr->price << endl;
+                cout << "Available: " << (curr->isIssued ? "No" : "Yes") << endl;
+                cout << "================================================================" << endl;
+                cout << endl;
+            }
+            curr = curr->next;
+        }
+        if(!found) {
+            cout << endl;
+            cout << "No book is available in pricing between " << min << " and " << max << endl;
+        }
+    }
+
 };
 
 LinkedList* l;
@@ -366,6 +428,14 @@ void book_deletion() {
     l->delete_book();
 }
 
+void book_updation() {
+    l->update_book_info();
+}
+
+void book_filteration() {
+    l->filter_books();
+}
+
 int main()
 {
     l = new LinkedList();
@@ -416,6 +486,14 @@ int main()
         else if (choice == 8)
         {
              book_deletion();
+        }
+        else if (choice == 9)
+        {
+             book_updation();
+        }
+        else if (choice == 10)
+        {
+             book_filteration();
         }
         else
         {
