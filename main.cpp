@@ -237,11 +237,41 @@ public:
     void available_books()
     {
         // enter code here for availible books
+        Node* curr = head;
+        while(curr != nullptr) {
+            if(curr->isIssued == false) {
+                cout << endl;
+                cout << "================================================================" << endl;
+                cout << "Book ID: " << curr->id << endl;
+                cout << "Book Title: " << curr->title << endl;
+                cout << "Book Author: " << curr->author << endl;
+                cout << "Book Price: " << curr->price << endl;
+                cout << "Available: " << (curr->isIssued ? "No" : "Yes") << endl;
+                cout << "================================================================" << endl;
+                cout << endl;
+            }
+            curr = curr->next;
+        }
     }
 
     void issued_books()
     {
         // enter code here for issued book
+        Node* curr = head;
+        while(curr != nullptr) {
+            if(curr->isIssued == true) {
+                cout << endl;
+                cout << "================================================================" << endl;
+                cout << "Book ID: " << curr->id << endl;
+                cout << "Book Title: " << curr->title << endl;
+                cout << "Book Author: " << curr->author << endl;
+                cout << "Book Price: " << curr->price << endl;
+                cout << "Available: " << (curr->isIssued ? "No" : "Yes") << endl;
+                cout << "================================================================" << endl;
+                cout << endl;
+            }
+            curr = curr->next;
+        }
     }
 };
 
@@ -287,6 +317,14 @@ void return_books() {
     l->return_book();
 }
 
+void all_available_books() {
+    l->available_books();
+}
+
+void all_issued_books() {
+    l->issued_books();
+}
+
 int main()
 {
     l = new LinkedList();
@@ -300,6 +338,9 @@ int main()
         cout << "5. Return Book" << endl;
         cout << "6. Show Available Books" << endl;
         cout << "7. Show Issued Books" << endl;
+        cout << "8. Delete Book" << endl;
+        cout << "9. Update Book Info" << endl;
+        cout << "10. Filter by price" << endl;
         cout << "0. Exit" << endl;
         cout << "Enter choice: ";
         cin >> choice;
@@ -322,6 +363,14 @@ int main()
         else if (choice == 5)
         {
              return_books();
+        }
+        else if (choice == 6)
+        {
+             all_available_books();
+        }
+        else if (choice == 7)
+        {
+             all_issued_books();
         }
         else
         {
