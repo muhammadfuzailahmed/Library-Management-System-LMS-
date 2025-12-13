@@ -335,6 +335,7 @@ public:
                 cout << endl;
                 break;
             }
+            curr = curr->next;
         }
         if(!found) {
             cout << endl;
